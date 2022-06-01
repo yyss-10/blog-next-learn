@@ -40,7 +40,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 //   }
 // }
 
-export const getStaticProps = async (context) => {
+export const getStaticProps = async (context:any) => {
   // 記事IDを取得する
   const slug = context.params.id
 
