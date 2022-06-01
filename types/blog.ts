@@ -6,10 +6,20 @@ export type Blogs = {
   revisedAt: string
   title: string
   body: string
-  category: Category
+  category: Categorys
+  tag: Tags
 }
 
-export type Category = {
+export type Categorys = {
+  createdAt: string
+  id: string
+  name: string
+  publishedAt: string
+  revisedAt: string
+  updatedAt: string
+}
+
+export type Tags = {
   createdAt: string
   id: string
   name: string
