@@ -6,7 +6,7 @@ import { Blogs } from '../../../types/blog'
 
 const PER_PAGE = 5
 
-export default function BlogPageId({ blog, totalCount }: { blog: Blogs[], totalCount: number }) {
+export default function BlogPageId({ blog, totalCount }: { blog: Blogs[]; totalCount: number }) {
   return (
     <div>
       <ul>
@@ -25,7 +25,7 @@ export default function BlogPageId({ blog, totalCount }: { blog: Blogs[], totalC
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const repos = await client.get({ endpoint: 'blog' })
-  const range = (start: number, end:number) => [...Array(end - start + 1)].map((_, i) => start + i)
+  const range = (start: number, end: number) => [...Array(end - start + 1)].map((_, i) => start + i)
   const paths = range(1, Math.ceil(repos.totalCount / PER_PAGE)).map((repo) => `/blog/page/${repo}`)
 
   return { paths, fallback: false }
@@ -38,7 +38,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   return {
     props: {
       blog: data.contents,
-      totalCount: data.totalCount
-    }
+      totalCount: data.totalCount,
+    },
   }
 }

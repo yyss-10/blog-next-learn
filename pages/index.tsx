@@ -12,7 +12,7 @@ type Props = {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const data = await client.get({ endpoint: 'blog', queries: {limit: 5, offset: 0} })
+  const data = await client.get({ endpoint: 'blog', queries: { limit: 5, offset: 0 } })
   const categoryData = await client.get({ endpoint: 'categories' })
   const tagData = await client.get({ endpoint: 'tags' })
 

@@ -3,7 +3,7 @@ import { client } from '../../libs/client'
 import { GetStaticProps, GetStaticPaths } from 'next'
 import { Blogs, Tags } from '../../types/blog'
 
-export default function CategoryId({ blogs }: {blogs :Blogs[] }) {
+export default function CategoryId({ blogs }: { blogs: Blogs[] }) {
   console.log(blogs)
   // タグに紐付いたコンテンツがない場合に表示
   if (blogs.length === 0) {

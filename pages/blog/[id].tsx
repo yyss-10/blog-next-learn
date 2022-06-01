@@ -42,13 +42,10 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps = async (context) => {
   // 記事IDを取得する
-  const slug = context.params.id;
+  const slug = context.params.id
 
   // draftKeyを取得し、クエリを作成する
-  const draftKey = context.previewData?.draftKey
-    ? { draftKey: context.previewData.draftKey }
-    : {};
-
+  const draftKey = context.previewData?.draftKey ? { draftKey: context.previewData.draftKey } : {}
 
   // 記事を取得する
   const blogPost = await client.get({
@@ -57,18 +54,16 @@ export const getStaticProps = async (context) => {
     queries: draftKey,
   })
 
-
   // 記事が存在しなければ404エラーを返す
   if (!blogPost) {
     return { notFound: true }
   }
 
-
   // 記事とdraftKeyをpropsに渡す
   return {
     props: {
       blog: blogPost,
-      ...draftKey
+      ...draftKey,
     },
   }
 }
