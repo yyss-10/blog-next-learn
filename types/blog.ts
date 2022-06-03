@@ -5,9 +5,10 @@ export type Blogs = {
   publishedAt: string
   revisedAt: string
   title: string
+  description: string
   body: string
   category: Categorys
-  tag: Tags
+  tag: Tags[]
 }
 
 export type Categorys = {

@@ -1,0 +1,10 @@
+.flex {
+  display: flex;
+  justify-content: space-between;
+  .flexInner--large {
+    width:73%;
+  }
+  .flexInner--small {
+    width: 23%;
+  }
+}

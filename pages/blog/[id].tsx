@@ -1,22 +1,54 @@
 // pages/blog/[id].js
+import Link from 'next/link'
 import { GetStaticProps, GetStaticPaths } from 'next'
 import { client } from '../../libs/client'
 import { Blogs } from '../../types/blog'
 import styles from '../../styles/Home.module.scss'
 
+// component
+import Header from '../../components/Header'
+import Title from '../../components/Title'
+
+// css
+import styleCommon from '../../styles/Common.module.scss'
+import styleBlogLayout from '../../styles/BlogLayout.module.scss'
+import styleCard from '../../styles/Card.module.scss'
+import styleButton from '../../styles/Button.module.scss'
+
 export default function BlogId({ blog }: { blog: Blogs }) {
+  // console.log(blog)
+  const publishedDate = blog.publishedAt.replace(/-/g, '/').substring(0, blog.publishedAt.indexOf('T'))
+
   return (
-    <main className={styles.main}>
-      <h1 className={styles.title}>{blog.title}</h1>
-      <p className={styles.publishedAt}>{blog.publishedAt}</p>
-      <p className="category">{blog.category && `${blog.category.name}`}</p>
-      <div
-        dangerouslySetInnerHTML={{
-          __html: `${blog.body}`,
-        }}
-        className={styles.post}
-      />
-    </main>
+    <>
+      <Header title={'Blog'} />
+      <div className={styleCommon.layout}>
+        <main className={styleCard.card}>
+          <Title title={blog.title} size="l" />
+          <div className={styleBlogLayout.head}>
+            <p>日付：{publishedDate}</p>
+            <p>カテゴリ：{blog.category && `${blog.category.name}`}</p>
+            <p>
+              タグ：
+              {blog.tag.map((tag) => (
+                <Link href={`/tag/${tag.id}`} key={tag.id}>
+                  <a>#{tag.name}</a>
+                </Link>
+              ))}
+            </p>
+          </div>
+          <div
+            dangerouslySetInnerHTML={{
+              __html: `${blog.body}`,
+            }}
+            className={styleBlogLayout.body}
+          />
+        </main>
+        <Link href={`/`}>
+          <a className={styleButton.btn}>Topに戻る</a>
+        </Link>
+      </div>
+    </>
   )
 }
 
@@ -40,7 +72,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 //   }
 // }
 
-export const getStaticProps = async (context:any) => {
+export const getStaticProps = async (context: any) => {
   // 記事IDを取得する
   const slug = context.params.id
 
@@ -63,7 +95,7 @@ export const getStaticProps = async (context:any) => {
   return {
     props: {
       blog: blogPost,
-      ...draftKey,
+      // ...draftKey,
     },
   }
 }

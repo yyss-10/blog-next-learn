@@ -1,26 +1,54 @@
 import Link from 'next/link'
 import { client } from '../../libs/client'
 import { GetStaticProps, GetStaticPaths } from 'next'
-import { Blogs, Categorys } from '../../types/blog'
+import { Blogs, Tags, Categorys } from '../../types/blog'
+
+// component
+import Header from '../../components/Header'
+import Title from '../../components/Title'
+
+// css
+import styleCommon from '../../styles/Common.module.scss'
+import styleButton from '../../styles/Button.module.scss'
+import styleCard from '../../styles/Card.module.scss'
 
 export default function CategoryId({ blogs }: { blogs: Blogs[] }) {
-  console.log(blogs)
   // カテゴリーに紐付いたコンテンツがない場合に表示
   if (blogs.length === 0) {
     return <div>ブログコンテンツがありません</div>
   }
   return (
-    <div>
-      <ul>
-        {blogs.map((blog) => (
-          <li key={blog.id}>
-            <Link href={`/blog/${blog.id}`}>
-              <a>{blog.title}</a>
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </div>
+    <>
+      <Header title={'Blog'} />
+      <div className={styleCommon.layout}>
+        <div className={styleCard.card}>
+          <Title title={`${blogs[0].category.name} カテゴリ一覧`} size={'l'} />
+          <ul>
+            {blogs.map((blog) => (
+              <li className={styleCard.blogCard} key={blog.id}>
+                <Link href={`/blog/${blog.id}`}>
+                  <a className={styleCard.link}>
+                    <p className={styleCard.title}>{blog.title}</p>
+                    {blog.description && <p className={styleCard.description}>{blog.description}</p>}
+                    <div>
+                      {blog.category && <p className={styleCard.category}>{blog.category.name}</p>}
+                      {blog.tag.map((tag: Tags) => (
+                        <span className={styleCard.tag} key={tag.id}>
+                          #{tag.name}
+                        </span>
+                      ))}
+                    </div>
+                  </a>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <Link href={`/`}>
+          <a className={styleButton.btn}>Topに戻る</a>
+        </Link>
+      </div>
+    </>
   )
 }
 

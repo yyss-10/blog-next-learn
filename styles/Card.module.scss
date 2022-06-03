@@ -1,0 +1,51 @@
+.card,
+.smallCard {
+  margin: 10px 0;
+  padding: 40px;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 4px #4385bb12;
+}
+
+.smallCard {
+  padding: 20px;
+}
+
+.blogCard {
+  margin-bottom: 40px;
+  border: 1px solid rgba(92, 147, 187, .2);
+  border-radius: 8px;
+  &:last-child {
+    margin-bottom: 0;
+  }
+  .link {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    height: 150px;
+    padding: 20px;
+    .title {
+      width: 100%;
+      margin: 0 0 10px 0;
+      font-size: 18px;
+      font-weight: bold;
+    }
+    .description {
+      width: 100%;
+      margin: 0 0 10px 0;
+      color: #77838c;
+      font-size: 15px;
+    }
+    .category {
+      width: 100%;
+      margin: 0 0 5px 0;
+      color: #77838c;
+      font-size: 13px;
+    }
+    .tag {
+      margin: 0 5px 0 0;
+      color: #77838c;
+      font-size: 13px;
+    }
+  }
+}
